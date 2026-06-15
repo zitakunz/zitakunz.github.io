@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sita Kunz Samuel — Salesforce Solution Engineer</title>
+<style>
+  :root{
+    --bg:#0a0e17;
+    --bg-card:rgba(255,255,255,0.045);
+    --border:rgba(255,255,255,0.09);
+    --text:#e8ecf4;
+    --text-dim:#93a0b8;
+    --accent:#6ee7f9;
+    --accent2:#a78bfa;
+    --accent3:#5b8cff;
+    --mono: 'SF Mono', 'JetBrains Mono', ui-monospace, Consolas, monospace;
+    --sans: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--sans);
+    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* Aurora background */
+  .aurora{position:fixed; inset:-20%; z-index:-1; filter:blur(90px); pointer-events:none;}
+  .aurora span{position:absolute; border-radius:50%; mix-blend-mode:screen; opacity:0.35;}
+  .aurora span:nth-child(1){width:55vw;height:55vw; background:var(--accent); top:-15%; left:-12%; animation:float1 32s ease-in-out infinite;}
+  .aurora span:nth-child(2){width:45vw;height:45vw; background:var(--accent2); bottom:-15%; right:-8%; animation:float2 38s ease-in-out infinite;}
+  .aurora span:nth-child(3){width:38vw;height:38vw; background:var(--accent3); top:35%; right:18%; animation:float3 44s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(12vw,10vh) scale(1.25);}}
+  @keyframes float2{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-10vw,-8vh) scale(1.15);}}
+  @keyframes float3{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-8vw,12vh) scale(0.9);}}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+
+  /* Nav */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    backdrop-filter:blur(14px); background:rgba(10,14,23,0.55);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .logo{font-family:var(--mono); font-weight:700; letter-spacing:0.08em; font-size:1rem; color:var(--text);}
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex; gap:2.2rem; font-size:0.85rem; color:var(--text-dim);}
+  .navlinks a{color:inherit; text-decoration:none; transition:color .2s;}
+  .navlinks a:hover{color:var(--accent);}
+  .navcta{
+    font-family:var(--mono); font-size:0.78rem; padding:0.5rem 1rem; border:1px solid var(--border);
+    border-radius:999px; color:var(--text); text-decoration:none; transition:all .25s;
+  }
+  .navcta:hover{border-color:var(--accent); color:var(--accent); box-shadow:0 0 24px -6px var(--accent);}
+  .menubtn{display:none; background:none; border:0; color:var(--text); font-size:1.4rem; cursor:pointer;}
+
+  /* Hero */
+  header.hero{min-height:100vh; display:flex; align-items:center; padding-top:64px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:1.4rem; display:flex; align-items:center; gap:0.6rem;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--accent);}
+  h1.name{
+    font-size:clamp(2.6rem, 7vw, 5.4rem); font-weight:800; line-height:1.04; letter-spacing:-0.02em;
+    background:linear-gradient(120deg, #ffffff 30%, var(--accent) 70%, var(--accent2) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .role{
+    font-size:clamp(1.05rem, 2.2vw, 1.4rem); color:var(--text-dim); margin-top:1rem; max-width:640px;
+    font-weight:400;
+  }
+  .role b{color:var(--text); font-weight:600;}
+  .hero-meta{display:flex; gap:1.6rem; flex-wrap:wrap; margin-top:2.4rem; font-family:var(--mono); font-size:0.82rem; color:var(--text-dim);}
+  .hero-meta a{color:var(--text-dim); text-decoration:none; border-bottom:1px solid transparent; transition:all .2s;}
+  .hero-meta a:hover{color:var(--accent); border-color:var(--accent);}
+  .scrolldown{
+    position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+    color:var(--text-dim); font-family:var(--mono); font-size:0.7rem; letter-spacing:0.2em;
+  }
+  .scrolldown .line{width:1px; height:40px; background:linear-gradient(var(--accent), transparent); animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:0.3;} 50%{opacity:1;}}
+
+  /* Section shells */
+  section{padding:7rem 0;}
+  .sectiontitle{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:0.8rem;
+  }
+  h2{font-size:clamp(1.8rem, 4vw, 2.6rem); font-weight:700; letter-spacing:-0.01em; margin-bottom:2.5rem;}
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* About */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:3rem; align-items:start;}
+  .about-grid p{color:var(--text-dim); font-size:1.05rem; max-width:620px;}
+  .stats{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;}
+  .stat{
+    background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.4rem 1.2rem;
+  }
+  .stat .num{font-family:var(--mono); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; color:var(--accent);}
+  .stat .lab{font-size:0.78rem; color:var(--text-dim); margin-top:0.3rem; letter-spacing:0.04em;}
+
+  /* Experience timeline */
+  .timeline{position:relative; padding-left:2.4rem;}
+  .timeline::before{content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:linear-gradient(var(--accent), var(--accent2), transparent);}
+  .titem{position:relative; margin-bottom:3rem;}
+  .titem::before{
+    content:''; position:absolute; left:-2.4rem; top:6px; width:13px; height:13px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent); box-shadow:0 0 0 4px rgba(110,231,249,0.08);
+  }
+  .titem .when{font-family:var(--mono); font-size:0.78rem; color:var(--accent); letter-spacing:0.05em;}
+  .titem h3{font-size:1.25rem; font-weight:700; margin-top:0.3rem;}
+  .titem .co{color:var(--text-dim); font-size:0.92rem; margin-bottom:0.7rem;}
+  .titem ul{padding-left:1.2rem; color:var(--text-dim); font-size:0.94rem;}
+  .titem li{margin-bottom:0.35rem;}
+
+  /* Skills */
+  .skillgroup{margin-bottom:1.6rem;}
+  .skillgroup h4{font-family:var(--mono); font-size:0.78rem; color:var(--accent2); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.8rem;}
+  .chips{display:flex; flex-wrap:wrap; gap:0.6rem;}
+  .chip{
+    border:1px solid var(--border); background:var(--bg-card); padding:0.45rem 0.95rem; border-radius:999px;
+    font-size:0.85rem; color:var(--text-dim); transition:all .25s;
+  }
+  .chip:hover{border-color:var(--accent); color:var(--text); transform:translateY(-2px); box-shadow:0 8px 24px -10px var(--accent);}
+
+  /* Certifications */
+  .certgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1rem;}
+  .cert{
+    border:1px solid var(--border); background:var(--bg-card); border-radius:14px; padding:1.2rem;
+    transition:transform .3s, border-color .3s; position:relative; overflow:hidden;
+  }
+  .cert::after{content:''; position:absolute; inset:0; background:linear-gradient(135deg, transparent, rgba(110,231,249,0.08)); opacity:0; transition:opacity .3s;}
+  .cert:hover{transform:translateY(-4px); border-color:var(--accent);}
+  .cert:hover::after{opacity:1;}
+  .cert .cn{font-weight:600; font-size:0.95rem;}
+  .cert .cd{font-family:var(--mono); font-size:0.75rem; color:var(--text-dim); margin-top:0.4rem;}
+
+  /* Education */
+  .edu{display:grid; gap:1.2rem;}
+  .eduitem{display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; border-bottom:1px solid var(--border); padding-bottom:1rem;}
+  .eduitem .left b{font-size:1.02rem;} .eduitem .left div{color:var(--text-dim); font-size:0.88rem; margin-top:0.2rem;}
+  .eduitem .right{font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); text-align:right;}
+
+  /* Footer / contact */
+  footer{padding:6rem 0 4rem; text-align:center;}
+  footer h2{margin-bottom:1rem;}
+  footer p{color:var(--text-dim); max-width:480px; margin:0 auto 2.2rem;}
+  .contact-row{display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;}
+  .pillbtn{
+    font-family:var(--mono); font-size:0.85rem; padding:0.85rem 1.6rem; border-radius:999px;
+    border:1px solid var(--border); color:var(--text); text-decoration:none; transition:all .25s;
+  }
+  .pillbtn.primary{background:linear-gradient(120deg, var(--accent), var(--accent2)); color:#0a0e17; border:none; font-weight:600;}
+  .pillbtn.primary:hover{filter:brightness(1.1); transform:translateY(-2px);}
+  .pillbtn:not(.primary):hover{border-color:var(--accent); color:var(--accent);}
+  .foot-credit{margin-top:4rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); opacity:0.5;}
+
+  @media (max-width:860px){
+    .navlinks{display:none;}
+    .menubtn{display:block;}
+    .about-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr 1fr;}
+    section{padding:4.5rem 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="aurora"><span></span><span></span><span></span></div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">SK<span>S</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="navcta" href="mailto:sitakunzsam@gmail.com">Say hello</a>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div>
+    <div class="eyebrow">Salesforce Solution Engineer · Presales</div>
+    <h1 class="name">Sita Kunz<br>Samuel</h1>
+    <p class="role">Trusted advisor with <b>19+ years</b> architecting and presenting Customer 360 solutions — <b>Data Cloud 360</b>, <b>Agentforce 360</b>, and <b>Financial Services Cloud</b> — for global enterprises across financial services, insurance, telecom, and manufacturing.</p>
+    <div class="hero-meta">
+      <span>Boston, MA · Chicago, IL</span>
+      <a href="mailto:sitakunzsam@gmail.com">sitakunzsam@gmail.com</a>
+      <a href="https://www.linkedin.com/in/sitakunz/" target="_blank">linkedin.com/in/sitakunz</a>
+      <a href="https://www.sitakunz.com" target="_blank">sitakunz.com</a>
+    </div>
+  </div>
+  <div class="scrolldown"><span>SCROLL</span><span class="line"></span></div>
+</header>
+
+<section id="about" class="wrap">
+  <div class="sectiontitle reveal">001 / About</div>
+  <div class="about-grid">
+    <div class="reveal">
+      <h2>Built for the moment between<br>"that's interesting" and "let's buy."</h2>
+      <p>I translate complex Salesforce architecture — data models, AI governance, platform integrations — into demonstrations and points of view that resonate with both engineers and the C-suite. Across Capgemini, Globe, PLDT, and global financial services and insurance programs, I've combined deep platform fluency with a consultative, trusted-adviser approach: discovery, solution fitment, and a story that connects technology to strategy.</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="num" data-target="19" data-suffix="+">0</div><div class="lab">Years in Salesforce ecosystem</div></div>
+      <div class="stat"><div class="num" data-target="16" data-prefix="$" data-suffix="M+">0</div><div class="lab">Delivery cost savings</div></div>
+      <div class="stat"><div class="num" data-target="5000" data-suffix="+">0</div><div class="lab">Users supported in production</div></div>
+      <div class="stat"><div class="num" data-target="1" data-prefix="$" data-suffix="B+">0</div><div class="lab">Enterprise API integration program</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="sectiontitle reveal">002 / Experience</div>
+  <h2 class="reveal">Career trajectory</h2>
+  <div class="timeline">
+    <div class="titem reveal">
+      <div class="when">Jan 2023 — Present</div>
+      <h3>Salesforce Data &amp; AI Transformation Director</h3>
+      <div class="co">GLGlobal · Chicago / Boston, USA · Remote</div>
+      <ul>
+        <li>Direct multi-workstream Salesforce delivery across financial services and cross-industry engagements, leading 5–10 person Data &amp; AI teams.</li>
+        <li>Lead Data Cloud 360 builds end-to-end and champion Einstein AI / Agentforce 360 on the Einstein 1 Platform.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">Sep 2021 — Dec 2022</div>
+      <h3>Senior Salesforce Consultant</h3>
+      <div class="co">Capgemini · Philippines · Onsite</div>
+      <ul>
+        <li>Directed production support for 5,000+ users across Financial Services Cloud and Marketing Cloud for a global insurance carrier.</li>
+        <li>Drove a $1B+ API Factory initiative establishing enterprise integration standards.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">May 2018 — Jul 2021</div>
+      <h3>Salesforce Functional Consultant</h3>
+      <div class="co">IP Converge Data Services (ePLDT) · Philippines · Onsite</div>
+      <ul>
+        <li>Spearheaded Salesforce CRM delivery across enterprise programs, delivering $16M in cost savings.</li>
+        <li>Designed Sales, Service, and Marketing Cloud solutions using Apex, Flow, and web service integrations.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">Oct 2017 — Dec 2017</div>
+      <h3>Presales Functional Consultant</h3>
+      <div class="co">Third Pillar (Globe) · Philippines · Onsite</div>
+      <ul>
+        <li>Built immersive Salesforce demo environments and presales assets, supporting deal qualification and closure.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">2006 — 2017</div>
+      <h3>Earlier career — Bahwan CyberTek &amp; Ramco Systems</h3>
+      <div class="co">India · Onsite</div>
+      <ul>
+        <li>Delivered Sales Cloud rollouts for 50+ global sales teams; led a 20+ member CRM &amp; digital delivery team.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="sectiontitle reveal">003 / Capabilities</div>
+  <h2 class="reveal">Platform fluency</h2>
+  <div class="reveal">
+    <div class="skillgroup">
+      <h4>Industry, Data &amp; AI Cloud</h4>
+      <div class="chips">
+        <span class="chip">Financial Services Cloud</span><span class="chip">Data Cloud 360</span>
+        <span class="chip">Agentforce 360</span><span class="chip">Einstein AI</span><span class="chip">Einstein 1 Platform</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <h4>Core Clouds</h4>
+      <div class="chips">
+        <span class="chip">Sales Cloud</span><span class="chip">Service Cloud</span><span class="chip">Marketing Cloud (Pardot)</span>
+        <span class="chip">Experience Cloud</span><span class="chip">Lightning Platform</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <h4>Development &amp; DevOps</h4>
+      <div class="chips">
+        <span class="chip">Apex</span><span class="chip">SOQL</span><span class="chip">Flow Orchestration</span>
+        <span class="chip">Gearset</span><span class="chip">Copado</span><span class="chip">AutoRabit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs" class="wrap">
+  <div class="sectiontitle reveal">004 / Certifications</div>
+  <h2 class="reveal">Salesforce-certified</h2>
+  <div class="certgrid reveal">
+    <div class="cert"><div class="cn">Data Cloud Consultant</div><div class="cd">Sep 2024</div></div>
+    <div class="cert"><div class="cn">AI Associate</div><div class="cd">Dec 2024</div></div>
+    <div class="cert"><div class="cn">AI Specialist</div><div class="cd">—</div></div>
+    <div class="cert"><div class="cn">Platform App Builder</div><div class="cd">Aug 2023</div></div>
+    <div class="cert"><div class="cn">Marketing Cloud Consultant</div><div class="cd">Aug 2020</div></div>
+    <div class="cert"><div class="cn">Pardot Specialist</div><div class="cd">Apr 2021</div></div>
+    <div class="cert"><div class="cn">Service Cloud Consultant</div><div class="cd">Aug 2019</div></div>
+    <div class="cert"><div class="cn">Sales Cloud Consultant</div><div class="cd">Aug 2018</div></div>
+    <div class="cert"><div class="cn">Salesforce Administrator</div><div class="cd">May 2017</div></div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="sectiontitle reveal">005 / Education</div>
+  <h2 class="reveal">Academic background</h2>
+  <div class="edu reveal">
+    <div class="eduitem"><div class="left"><b>M.S., Data Science, IT &amp; Business Analytics</b><div>Monroe University, USA</div></div><div class="right">Expected 2027</div></div>
+    <div class="eduitem"><div class="left"><b>MBA, Banking &amp; Finance</b><div>Alagappa University, India</div></div><div class="right">2009</div></div>
+    <div class="eduitem"><div class="left"><b>B.Sc., Chemistry</b><div>Women's Christian College, India</div></div><div class="right">2000</div></div>
+  </div>
+</section>
+
+<footer id="contact" class="wrap">
+  <div class="sectiontitle reveal" style="justify-content:center; display:flex;">006 / Contact</div>
+  <h2 class="reveal">Let's talk solutions.</h2>
+  <p class="reveal">Open to Solution Engineering, Presales, and Salesforce platform leadership conversations across financial services, insurance, and enterprise technology.</p>
+  <div class="contact-row reveal">
+    <a class="pillbtn primary" href="mailto:sitakunzsam@gmail.com">Email me</a>
+    <a class="pillbtn" href="https://www.linkedin.com/in/sitakunz/" target="_blank">LinkedIn</a>
+    <a class="pillbtn" href="tel:331-278-0971">331-278-0971</a>
+  </div>
+  <div class="foot-credit">Boston, MA · Chicago, IL — sitakunz.com</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.num');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.target,10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        let cur = 0;
+        const step = Math.max(1, Math.round(target/40));
+        const tick = ()=>{
+          cur += step;
+          if(cur >= target){ el.textContent = prefix+target+suffix; return; }
+          el.textContent = prefix+cur+suffix;
+          requestAnimationFrame(tick);
+        };
+        tick();
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold:0.4});
+  counters.forEach(el=>cio.observe(el));
+
+  // Mobile nav (simple toggle, future-proofing for smaller screens)
+  document.querySelectorAll('.navlinks a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+</script>
+
+</body>
+</html>
