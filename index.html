@@ -1,1107 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8" />
-<title>Sita Kunz CV
-</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sita Kunz Samuel — Salesforce Solution Engineer</title>
+<style>
+  :root{
+    --bg:#0a0e17;
+    --bg-card:rgba(255,255,255,0.045);
+    --border:rgba(255,255,255,0.09);
+    --text:#e8ecf4;
+    --text-dim:#93a0b8;
+    --accent:#6ee7f9;
+    --accent2:#a78bfa;
+    --accent3:#5b8cff;
+    --mono: 'SF Mono', 'JetBrains Mono', ui-monospace, Consolas, monospace;
+    --sans: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--sans);
+    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  /* Aurora background */
+  .aurora{position:fixed; inset:-20%; z-index:-1; filter:blur(90px); pointer-events:none;}
+  .aurora span{position:absolute; border-radius:50%; mix-blend-mode:screen; opacity:0.35;}
+  .aurora span:nth-child(1){width:55vw;height:55vw; background:var(--accent); top:-15%; left:-12%; animation:float1 32s ease-in-out infinite;}
+  .aurora span:nth-child(2){width:45vw;height:45vw; background:var(--accent2); bottom:-15%; right:-8%; animation:float2 38s ease-in-out infinite;}
+  .aurora span:nth-child(3){width:38vw;height:38vw; background:var(--accent3); top:35%; right:18%; animation:float3 44s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(12vw,10vh) scale(1.25);}}
+  @keyframes float2{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-10vw,-8vh) scale(1.15);}}
+  @keyframes float3{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-8vw,12vh) scale(0.9);}}
 
-<link rel="shortcut icon" href="./favicon.png" />
+  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
 
-<link href='https://fonts.googleapis.com/css?family=Anton%7CUbuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css' />
+  /* Nav */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    backdrop-filter:blur(14px); background:rgba(10,14,23,0.55);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .logo{font-family:var(--mono); font-weight:700; letter-spacing:0.08em; font-size:1rem; color:var(--text);}
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex; gap:2.2rem; font-size:0.85rem; color:var(--text-dim);}
+  .navlinks a{color:inherit; text-decoration:none; transition:color .2s;}
+  .navlinks a:hover{color:var(--accent);}
+  .navcta{
+    font-family:var(--mono); font-size:0.78rem; padding:0.5rem 1rem; border:1px solid var(--border);
+    border-radius:999px; color:var(--text); text-decoration:none; transition:all .25s;
+  }
+  .navcta:hover{border-color:var(--accent); color:var(--accent); box-shadow:0 0 24px -6px var(--accent);}
+  .menubtn{display:none; background:none; border:0; color:var(--text); font-size:1.4rem; cursor:pointer;}
 
-<link rel="stylesheet" type="text/css" href="./css/themify-icons.css" />
+  /* Hero */
+  header.hero{min-height:100vh; display:flex; align-items:center; padding-top:64px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:1.4rem; display:flex; align-items:center; gap:0.6rem;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--accent);}
+  h1.name{
+    font-size:clamp(2.6rem, 7vw, 5.4rem); font-weight:800; line-height:1.04; letter-spacing:-0.02em;
+    background:linear-gradient(120deg, #ffffff 30%, var(--accent) 70%, var(--accent2) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .role{
+    font-size:clamp(1.05rem, 2.2vw, 1.4rem); color:var(--text-dim); margin-top:1rem; max-width:640px;
+    font-weight:400;
+  }
+  .role b{color:var(--text); font-weight:600;}
+  .hero-meta{display:flex; gap:1.6rem; flex-wrap:wrap; margin-top:2.4rem; font-family:var(--mono); font-size:0.82rem; color:var(--text-dim);}
+  .hero-meta a{color:var(--text-dim); text-decoration:none; border-bottom:1px solid transparent; transition:all .2s;}
+  .hero-meta a:hover{color:var(--accent); border-color:var(--accent);}
+  .scrolldown{
+    position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+    color:var(--text-dim); font-family:var(--mono); font-size:0.7rem; letter-spacing:0.2em;
+  }
+  .scrolldown .line{width:1px; height:40px; background:linear-gradient(var(--accent), transparent); animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:0.3;} 50%{opacity:1;}}
 
-<link rel="stylesheet" type="text/css" href="./css/catSlider.css" />
+  /* Section shells */
+  section{padding:7rem 0;}
+  .sectiontitle{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:0.8rem;
+  }
+  h2{font-size:clamp(1.8rem, 4vw, 2.6rem); font-weight:700; letter-spacing:-0.01em; margin-bottom:2.5rem;}
 
-<link rel="stylesheet" type="text/css" href="./css/owl.carousel.css" />
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
 
-<link rel="stylesheet" type="text/css" href="./css/materialize.min.css" />
+  /* About */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:3rem; align-items:start;}
+  .about-grid p{color:var(--text-dim); font-size:1.05rem; max-width:620px;}
+  .stats{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;}
+  .stat{
+    background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.4rem 1.2rem;
+  }
+  .stat .num{font-family:var(--mono); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; color:var(--accent);}
+  .stat .lab{font-size:0.78rem; color:var(--text-dim); margin-top:0.3rem; letter-spacing:0.04em;}
 
-<link rel="stylesheet" type="text/css" href="./css/cvitae-grid.css" />
+  /* Experience timeline */
+  .timeline{position:relative; padding-left:2.4rem;}
+  .timeline::before{content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:linear-gradient(var(--accent), var(--accent2), transparent);}
+  .titem{position:relative; margin-bottom:3rem;}
+  .titem::before{
+    content:''; position:absolute; left:-2.4rem; top:6px; width:13px; height:13px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent); box-shadow:0 0 0 4px rgba(110,231,249,0.08);
+  }
+  .titem .when{font-family:var(--mono); font-size:0.78rem; color:var(--accent); letter-spacing:0.05em;}
+  .titem h3{font-size:1.25rem; font-weight:700; margin-top:0.3rem;}
+  .titem .co{color:var(--text-dim); font-size:0.92rem; margin-bottom:0.7rem;}
+  .titem ul{padding-left:1.2rem; color:var(--text-dim); font-size:0.94rem;}
+  .titem li{margin-bottom:0.35rem;}
 
-<link rel="stylesheet" type="text/css" href="./css/main.css" />
-<script type="text/javascript" src="./js/modernizr.js">
-</script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  /* Skills */
+  .skillgroup{margin-bottom:1.6rem;}
+  .skillgroup h4{font-family:var(--mono); font-size:0.78rem; color:var(--accent2); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.8rem;}
+  .chips{display:flex; flex-wrap:wrap; gap:0.6rem;}
+  .chip{
+    border:1px solid var(--border); background:var(--bg-card); padding:0.45rem 0.95rem; border-radius:999px;
+    font-size:0.85rem; color:var(--text-dim); transition:all .25s;
+  }
+  .chip:hover{border-color:var(--accent); color:var(--text); transform:translateY(-2px); box-shadow:0 8px 24px -10px var(--accent);}
+
+  /* Certifications */
+  .certgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1rem;}
+  .cert{
+    border:1px solid var(--border); background:var(--bg-card); border-radius:14px; padding:1.2rem;
+    transition:transform .3s, border-color .3s; position:relative; overflow:hidden;
+  }
+  .cert::after{content:''; position:absolute; inset:0; background:linear-gradient(135deg, transparent, rgba(110,231,249,0.08)); opacity:0; transition:opacity .3s;}
+  .cert:hover{transform:translateY(-4px); border-color:var(--accent);}
+  .cert:hover::after{opacity:1;}
+  .cert .cn{font-weight:600; font-size:0.95rem;}
+  .cert .cd{font-family:var(--mono); font-size:0.75rem; color:var(--text-dim); margin-top:0.4rem;}
+
+  /* Education */
+  .edu{display:grid; gap:1.2rem;}
+  .eduitem{display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; border-bottom:1px solid var(--border); padding-bottom:1rem;}
+  .eduitem .left b{font-size:1.02rem;} .eduitem .left div{color:var(--text-dim); font-size:0.88rem; margin-top:0.2rem;}
+  .eduitem .right{font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); text-align:right;}
+
+  /* Footer / contact */
+  footer{padding:6rem 0 4rem; text-align:center;}
+  footer h2{margin-bottom:1rem;}
+  footer p{color:var(--text-dim); max-width:480px; margin:0 auto 2.2rem;}
+  .contact-row{display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;}
+  .pillbtn{
+    font-family:var(--mono); font-size:0.85rem; padding:0.85rem 1.6rem; border-radius:999px;
+    border:1px solid var(--border); color:var(--text); text-decoration:none; transition:all .25s;
+  }
+  .pillbtn.primary{background:linear-gradient(120deg, var(--accent), var(--accent2)); color:#0a0e17; border:none; font-weight:600;}
+  .pillbtn.primary:hover{filter:brightness(1.1); transform:translateY(-2px);}
+  .pillbtn:not(.primary):hover{border-color:var(--accent); color:var(--accent);}
+  .foot-credit{margin-top:4rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); opacity:0.5;}
+
+  @media (max-width:860px){
+    .navlinks{display:none;}
+    .menubtn{display:block;}
+    .about-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr 1fr;}
+    section{padding:4.5rem 0;}
+  }
+</style>
 </head>
-<body class="intro-2 home">
-<div class="preloader-overlay">
-<div class="preloader">
-<div class="lines">
-<div class="line line-1">
-</div>
-<div class="line line-2">
-</div>
-<div class="line line-3">
-</div>
-</div>
-
-<div class="loading-text">LOADING
-</div>
-</div>
-</div>
-
-<!-- LEFT FLOATING ICONS -->
-<div class="left-floating-icons">
-    <a href="mailto:sitakunzsam@gmail.com" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Email Me"><span class="ti-email"></span></a>
-    <a href="https://www.linkedin.com/in/sitakunz/" target="_blank" class="tooltipped" data-position="right" data-delay="50" data-tooltip="LinkedIn"><span class="ti-linkedin"></span></a>
-    <a href="https://calendly.com/sitakunz" target="_blank" class="calendly-btn tooltipped" data-position="right" data-delay="50" data-tooltip="Schedule a Call">Call</a>
-</div>
-
-<div class="cvitae-site-container">
-
-<div class="cvitae-mobile-navigation">
-
-<div class="nav-header">
-
-<span class="ti-menu mobile-site-menu">
-</span><a class="mobile-site-title" href="#home">Sita Kunz</a>
-</div><nav class="cvitae-mobile-nav scroll">
-<ul>
-<li><a class="waves-effect waves-cvitae" href="#home">Home</a></li>
-<li><a class="waves-effect waves-cvitae" href="#about">About Me</a></li>
-<li><a class="waves-effect waves-cvitae" href="#adventure">Adventure</a></li>
-<li><a class="waves-effect waves-cvitae" href="#skills">Skills</a></li>
-<li><a class="waves-effect waves-cvitae" href="#achievement">Achievement</a></li>
-<li><a class="waves-effect waves-cvitae" href="#education">Education</a></li>
-<li><a class="waves-effect waves-cvitae" href="#resources">Resources</a></li>
-<li><a class="waves-effect waves-cvitae" href="#testimonial">Testimony</a></li>
-<li><a class="waves-effect waves-cvitae" href="#experience">Experience</a></li>
-<li><a class="waves-effect waves-cvitae" href="#blog">Blogs</a></li>
-<li><a class="waves-effect waves-cvitae" href="#lifepixels">Life Inside Pixels</a></li>
-<li><a class="waves-effect waves-cvitae" href="#chat">Chat</a></li>
-<li><a class="waves-effect waves-cvitae" href="#contact">Contact</a></li>
-</ul></nav>
-</div>
-
-<div id="home" class="cvitae-section slider fullSlider">
-
-<div class="slider-overlay cvitae-typed-slider">
-
-<div class="cvitae-container">
-
-<div class="slider-content">
-
-<p class="name">Sita Kunz</p>
-
-<p class="designation">Salesforce Delivery Leader</p>
-
-<p class="subtitle">CRM | Data | AI</p>
-
-<p class="quote">"At Salesforce, customer experience isn’t a department — it’s the product."</p><!--<a href="#about" >KNOW MORE</a> FIX THE ANIMATION OF KNOW MORE-->
-
-<div class="shape">
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="cvitae-menu-wrapper slider-bottom"><nav class="cvitae-main-nav scroll">
-<ul>
-<li class="waves-effect waves-cvitae"><a href="#about">About</a></li>
-<li class="waves-effect waves-cvitae"><a href="#skills">Skills</a></li>
-<li class="waves-effect waves-cvitae"><a href="#achievement">Achievement</a></li>
-<li class="waves-effect waves-cvitae"><a href="#education">Education</a></li>
-<!-- <li class="waves-effect waves-cvitae"><a href="#mentee">Mentorship</a></li>  -->
-<!-- <li class="waves-effect waves-cvitae"><a href="#portfolio">Portfolio</a></li> -->
-<li class="cvitae-home waves-effect"><a href="#home">Sita Kunz</a></li>
-<li class="waves-effect waves-cvitae"><a href="#testimonial">Testimony</a></li>
-<li class="waves-effect waves-cvitae"><a href="#experience">Experience</a></li>
-<li class="waves-effect waves-cvitae"><a href="#blog">Blog</a></li>
-<li class="waves-effect waves-cvitae"><a href="#contact">Contact</a></li>
-</ul></nav>
-</div>
-
-<div id="about" class="cvitae-section cvitae-about-me">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left short-bio">
-
-<div class="pic"><img class="img-responsive" src="./img/bio/2.jpg" alt="Bio Pic" />
-</div>
-
-<p align="justify">
-
-Experienced Salesforce Practice COE with extensive knowledge on process, people and technology along with high expertise in Sales, Service, Marketing, FSC and Data Cloud.
- 
- 
-
-
-</p>
-</div>
-
-<div class="content-right about"><h3 class="cvitae-section-title">About Me</h3>
-
-<p class="info">
-
-<span class="field-title">Full Name
-</span> 
-
-<span class="field-separator">:
-</span> 
-
-<span class="field-value">Sita Kunz
-</span></p>
-
-<p class="info">
-
-<span class="field-title">Address
-</span> 
-
-<span class="field-separator">:
-</span> 
-
-<span class="field-value">Chicago, Illinois  
-</span></p>
-
-<p class="info">
-
-<span class="field-title">LinkedIn
-</span> 
-
-<span class="field-separator">:
-</span> 
-
-<span class="field-value"><a href="https://www.linkedin.com/in/sitakunz/" target="_blank">https://www.linkedin.com/in/sitakunz/</a>
-</span></p>
-
-<p class="info">
-
-<span class="field-title">Phone
-</span> 
-
-<span class="field-separator">:
-</span> 
-
-<span class="field-value">+1 331-278-0971 / Backup(Spouse) +1 331-279-0969
-</span></p>
-
-<p class="info">
-
-<span class="field-title">Email
-</span> 
-
-<span class="field-separator">:
-</span> 
-
-<span class="field-value">sitakunzsam@gmail.com
-</span></p>
-</div>
-
-
-
-
-<div class="links">
-
-<a download="./cv/sita_kunz_2016.pdf" target="_blank" onclick="Materialize.toast('Resume Download Successfully', 4000, 'rounded')" href="./cv/Resumev3.pdf" target="_blank"  class="tooltipped" data-position="left" data-delay="50" data-tooltip="Download my Resume">
-<span class="ti-download">
-</span>Download Resume</a>
-
-
-
-<a href="mailto:sitakunzsam@gmail.com" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Email this Resume">
-
-<span class="ti-email">
-</span>Email this Resume</a>
-
-
-
-
-
-<a href="https://www.linkedin.com/in/sitakunz/"  target="_blank" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Follow on LinkedIn">
-
-<span class="ti-linkedin">
-</span>LinkedIn Profile</a>
-
-
-<a href="https://github.com/zitakunz"  target="_blank" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Github">
-
-<span class="ti-github">
-</span>LinkedIn Profile</a>
-
-
-<a href="https://twitter.com/SitaKunz"  target="_blank" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Follow on Twitter">
-<span class="ti-twitter">
-</span>Twitter Profile</a>
-
-
-<a href="https://trailblazer.me/id/sitakunz" target="_blank" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Follow on Trailhead">
-
-<span class="ti-cloud">
-</span>Facebook Profile</a>
-
-
-</div>
-</div>
-</div>
-</div>
-
-<div id="skills" class="cvitae-section cvitae-skills">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Key Skills</h3>
-<ul class="hi-lights">
-<li>PROJECT & QUALITY MANAGEMENT</li>
-<li>ALL KEY SALESFORCE SOLUTION</li>
-<li>BUSINESS ANALYST</li>
-<li>HTML/Photoshop & More</li>
-</ul>
- 
- <a href="./index.html"  class="view-all">View all</a>
- 
-</div>
-
-<div class="content-right">
-
-<div class="progress-bar-container">
-
-<div class="progress"><h3 class="progress-title">CONSULTANT</h3>
-
-<div class="progress-bar" data-progress="85">
-
-<span class="bar">
-</span>
-
-<span class="text">85
-</span>
-</div>
-</div>
-
-<div class="progress"><h3 class="progress-title">PRE-SALES </h3>
-
-<div class="progress-bar" data-progress="72">
-
-<span class="bar">
-</span>
-
-<span class="text">72
-</span>
-</div>
-</div>
-
-<div class="progress"><h3 class="progress-title">BUSINESS ANALYSIS</h3>
-
-<div class="progress-bar" data-progress="73">
-
-<span class="bar">
-</span>
-
-<span class="text">73
-</span>
-</div>
-</div>
-
-<div class="progress"><h3 class="progress-title">SALESFORCE ADMIN</h3>
-
-<div class="progress-bar" data-progress="69">
-
-<span class="bar">
-</span>
-
-<span class="text">69
-</span>
-</div>
-</div>
-
-<div class="progress"><h3 class="progress-title">DIGITAL MARKETING</h3>
-
-<div class="progress-bar" data-progress="78">
-
-<span class="bar">
-</span>
-
-<span class="text">78
-</span>
-</div>
-</div>
-
-<div class="progress"><h3 class="progress-title">REPORT & DASHBOARD</h3>
-
-<div class="progress-bar" data-progress="75">
-
-<span class="bar">
-</span>
-
-<span class="text">75
-</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div id="achievement" class="cvitae-section cvitae-achievement">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Achievement</h3>
-
-<p align="justify">Handled many Programs and cross collaborated with teams across countries and received lot of feedbacks and recommendation to travel to countries like Singapore to train resources on B2B &amp; B2C Marketing strategies ,Consulting and Salesforce CRM which eventually helped the company to earn revenue,adoption rate of clients and growth in the overall personal brand.</p>
-</div>
-
-<div class="content-right">
-
-<div class="achievement-container">
-
-<div class="item">
-
-<p class="achievement-date">July 3, 2023</p><h4 class="achievement-title">Trailblazer Mentorship</h4>
-
-<p class="achievement-detail">Accepted into Trailblazer Mentorship program, and have been working with multiple mentee's.</p><br>
-<a href="http://image.mail.salesforce.com/lib/fe961c727460077877/m/2/051922_MentorshipCirclesAccepted.png?utm_source=sfmc&utm_term=Share+grahpic&utm_content=588771&utm_id=1fef261a-324b-4d65-96ca-92ea59d6b8a9&sfmc_id=172792352&sfmc_activityid=c24cd592-b6a3-4b86-87fe-f7a63e4bf561&utm_medium=email" target="_blank"><p>Mentorship Acceptance Link.</p></a>
-</div>
-
-<div class="item">
-
-<p class="achievement-date">7th June, 2010</p><h4 class="achievement-title">Best Team Management 2K</h4>
-
-<p class="achievement-detail">Performance-driven Client partnership, acknowledged for expertise in bringingin new client relationships, 
-stimulating new business, and strategically securing more revenue in a highly competitive sectors.</p>
-</div>
-
-<div class="item">
-
-<p class="achievement-date">7th June, 2016</p><h4 class="achievement-title">Most Wanted Winner</h4>
-
-<p class="achievement-detail">
-
-Sita is ambitious, Insightful and creative colleague with a very strong work ethics. 
-She is prepared to deal with difficult situations. A Team player with very positive attitude and great interpersonal skills. 
-
-<br>
-<br>
-Badrinath Jeyaram - Business Development - Bahwan Cybertek
-
-</p> 
-</div>
-
-<div class="item">
-
-<p class="achievement-date">4th Jan, 2018</p><h4 class="achievement-title">Most Wanted Winner</h4>
-
-<p class="achievement-detail">Have won two bounties in a single Business Analysis event arranged by Philippines competing 24+ international participants.</p>
-</div>
-
-<div class="item">
-
-<p class="achievement-date">7th June, 2017</p><h4 class="achievement-title">Most Wanted Winner</h4>
-
-<p class="achievement-detail">Have won two bounties in a single javascript event arranged by Envato (codecanyon) competing 40+ international participants.</p>
-</div>
-
-<div class="item">
-
-<p class="achievement-date">7th June, 2016</p><h4 class="achievement-title">Most Wanted Winner</h4>
-
-<p class="achievement-detail">Have won two bounties in a single javascript event arranged by Envato (codecanyon) competing 40+ international participants.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="parallax">
-</div>
-</div>
-
-<div id="education" class="cvitae-section cvitae-education">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Educaton</h3>
-
-<p align="justify">To acquire continuous knowledge, I am lucky to get certified from several famous institutions. Here I enlisted my top certifications.</p>
-
-<p>Beside that, I had been awarded for many School Debates, House Captain and Classical Dance.</p>
-
-
-</div>
-
-<div class="content-right">
-<ul class="collapsible" data-collapsible="accordion">
-
-<li>
-
-    <div class="collapsible-header">SALESFORCE CERTIFICATIONS & BADGES
-    
-    <span class="year">2017 - Current
-    </span>
+<body>
+
+<div class="aurora"><span></span><span></span><span></span></div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">SK<span>S</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
     </div>
-    
-    <div class="collapsible-body">
-
-    <p>SALESFORCE TRAILHEAD BADGES <a href="https://trailblazer.me/id/sitakunz" target="_blank"><u>Trailhead Link.</u></a></p>
-    
-    <p>SALESFORCE CERTIFICATION ADM201 No <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=b1X0iKVpAbe34n61taS2rDc1lRby7qA/at1R/w+rU5FtrCTVNoutj3F1bWIDkuyq" target="_blank"><u>17271235</u></a>.<BR>
-    <img src="./cv/salesforce_admin_201.jpg" height="320" width="420"><BR>
-    
-    SALESFORCE CERTIFICATION SALES CLOUD CONSULTANT No <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=b1X0iKVpAbe34n61taS2rDc1lRby7qA/at1R/w+rU5FtrCTVNoutj3F1bWIDkuyq" target="_blank"><u>19054943</u></a>.<BR>
-    <img src="./cv/salesforce_cloud.jpg" height="320" width="420"><BR>
-
-    SALESFORCE CERTIFICATION PARDOT SPECIALIST No <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=b1X0iKVpAbe34n61taS2rDc1lRby7qA/at1R/w+rU5FtrCTVNoutj3F1bWIDkuyq" target="_blank"><u>22024769</u></a>.<BR>
-    <img src="./cv/Salesforce_Pardot_Specialist.jpg" height="320" width="420"><BR>
-    
-
-    SALESFORCE CERTIFICATION MARKETING CLOUD EMAIL SPECIALIST No <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=b1X0iKVpAbe34n61taS2rDc1lRby7qA/at1R/w+rU5FtrCTVNoutj3F1bWIDkuyq" target="_blank"><u>19859327</u></a>.<BR>
-    <img src="./cv/Salesforce_Marketing_Cloud_Email_Specialist.jpg" height="320" width="420"><BR>
-
-    SALESFORCE CERTIFICATION SERVICE CLOUD CONSULTANT No <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=b1X0iKVpAbe34n61taS2rDc1lRby7qA/at1R/w+rU5FtrCTVNoutj3F1bWIDkuyq" target="_blank"><u>20348779</u></a>.<BR>
-    <img src="./cv/Salesforce_Service_Cloud_Consultant.jpg" height="320" width="420"><BR>
-
-    SALESFORCE CERTIFICATION MARKETING CLOUD CONSULTANT No <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=b1X0iKVpAbe34n61taS2rDc1lRby7qA/at1R/w+rU5FtrCTVNoutj3F1bWIDkuyq" target="_blank"><u>21418416</u></a>.<BR>
-    <img src="./cv/Salesforce_Mktg_Cloud_Consultant.jpg" height="320" width="420"><BR>
-    
-    
-    
-    
-    </div></li>
-
-
-
-<li>
-
-<div class="collapsible-header">MASTERS IN BUSINESS ADMINISTRATION  
-
-<span class="year">2010
-</span>
-</div>
-
-<div class="collapsible-body">
-
-<p>Successfully passed on year 2010. The study fields were Computer Architecture, Banking and Finance, OR , MIS and Banking Laws.</p>
-</div></li>
-<li>
-
-<div class="collapsible-header">BSC Chemistry
-
-<span class="year">2000
-</span>
-</div>
-
-<div class="collapsible-body">
-
-<p>Successfully passed in BioChemistry, Environmental , Physics, Maths, Physical Chemistry</p>
-</div></li>
-
-
-
-</ul>
-</div>
-</div>
-</div>
-</div>
-
-
-<!-- 
-
-<div id="portfolio" class="cvitae-section cvitae-portfolio">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Portfolio</h3>
-
-<p>Here are albums of my best works that I did in past several years. I studied, worked &amp; learnt (still learning) from these projects a lot.</p>
-
-<p>Please feel free to ask me any questions regarding my works / porfolio.</p>
-</div>
-
-<div class="content-right">
-
-<div id="cvitae-slider" class="mi-slider cvitae-gallery"> 
-
-<ul>
-<li><a href="#" class="project" data-project-title="Business Website" data-project-image="img/portfolio/1.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/1.jpg" alt="img01" /><h4>Business Website</h4></a></li>
-<li><a href="#" class="project" data-project-title="E-commerce Website" data-project-image="img/portfolio/2.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/2.jpg" alt="img02" /><h4>E-commerce Website</h4></a></li>
-<li><a href="#" class="project" data-project-title="Portfolio Website" data-project-image="img/portfolio/3.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/3.jpg" alt="img03" /><h4>Portfolio Website</h4></a></li>
-</ul>
-<ul>
-<li><a href="#" class="project" data-project-title="Business Website" data-project-image="img/portfolio/1.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/1.jpg" alt="img01" /><h4>Business Website</h4></a></li>
-<li><a href="#" class="project" data-project-title="E-commerce Website" data-project-image="img/portfolio/2.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/2.jpg" alt="img02" /><h4>E-commerce Website</h4></a></li>
-<li><a href="#" class="project" data-project-title="Portfolio Website" data-project-image="img/portfolio/3.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/3.jpg" alt="img03" /><h4>Portfolio Website</h4></a></li>
-</ul>
-<ul>
-<li><a href="#" class="project" data-project-title="Business Website" data-project-image="img/portfolio/1.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/1.jpg" alt="img01" /><h4>Business Website</h4></a></li>
-<li><a href="#" class="project" data-project-title="E-commerce Website" data-project-image="img/portfolio/2.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/2.jpg" alt="img02" /><h4>E-commerce Website</h4></a></li>
-<li><a href="#" class="project" data-project-title="Portfolio Website" data-project-image="img/portfolio/3.jpg" data-project-link="#" data-project-detail="Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words"><img src="./img/portfolio/3.jpg" alt="img03" /><h4>Portfolio Website</h4></a></li>
-
-
-
-</ul><nav><a href="#">Implementation</a><a href="#">PARDOT</a><a href="#">Digital</a></nav>
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
- -->
-
-
-<div id="testimonial" class="cvitae-section cvitae-testimonial">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Testimonials</h3>
-
-<p>Visited different countries &amp; met lot of people throughout companies. Earned love, respect &amp; trust. Therefore I got some testimonails too.</p>
-</div>
-
-<div class="content-right">
-
-<div class="testimonial-container">
-
-<div class="item">
-
-<p class="designation">Senior Manager at Capgemini</p><h4 class="name">Pravin Hariharan</h4>
-
-<p class="message">
-    Sita is not just a vastly experienced Salesforce consultant which is her forte. But she's also capable of slipping easily into any different and challenging consultation roles like a transition manager, ITPM etc. 
-    She has been actively learning and pursuing Agile Methodology and pretty sure she'll conquer that as well very soon. Wishing her only the best.
-
-</p>
-</div>
-
-<div class="item">
-
-<p class="designation">Sales &amp; Presales Exec. for APAC at Third Pillar</p><h4 class="name">Russell Aprecia</h4>
-
-<p class="message">
-    Analytical thinking is Sita’s strength. She never hesitates to throw her ideas and evaluation of a solution plan, thinks outside of the box and challenges the status quo. The results are usually a better version of the previous state. 
-    She’s also a fast learner and is determined to learn more about salesforce. 
-
-</p>
-</div>
-
-
-<div class="item">
-
-<p class="designation">Digital Marketing Senior VP at Bahwancybertek </p><h4 class="name">Seshachari</h4>
-
-<p class="message"> 
-
-
-Sita takes the initiative to do things and does the work with great commitment. 
-
-She have the ability to interpret analytics such as strategic account modeling, marketing qualified leads (MQLs) 
-and lead trends is profound. 
-
-
-</p>
-</div>
-
-<div class="item">
-
-<p class="designation">MGM</p><h4 class="name">Anand Muthu</h4>
-
-<p class="message">
-sita was a honest and trusted person 
-
-</p>
-</div>
-
-
-<div class="item">
-
-<p class="designation">Business Development Manager at Bahwan CyberTek</p><h4 class="name">Badrinath Jayaram</h4>
-
-<p class="message"> 
-
-Sita is ambitious, Insightful and creative colleague with a very strong work ethics. She is prepared to deal with difficult situations. A Team player with very positive attitude and great interpersonal skills. 
-
-</p>
-</div>
-
-<div class="item">
-
-<p class="designation">VP Marketing at Ramco Systems</p><h4 class="name">Harshavardhan</h4>
-
-<p class="message">Sita  is remarkably awesome! Super skilled and have a great quantity of patience.
-<br><br>
- I will definetly recommened to anyone to hire this Superwomen !!</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="parallax">
-</div>
-</div>
-
-<div id="experience" class="cvitae-section cvitae-experience">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Experience</h3>
-
-<p align="justify">
-
-    Pro-active, Aggressive and result oriented Salesforce Certified Program lead with
-    16+ Years of IT Experience in Project Management and have led Multiple teams
-    from ideation to implementation of successful IT Projects that aligns Business and
-    IT objectives to deliver Customer Centric results.
-
-.</p>
-
-<p align="justify">	I have extended experience in
-    managing multi cultured /location global Projects in CRM/ERP (Salesforce, Ramco
-    OnDemand) for large scale Enterprise Organization.</p>
-</div>
-
-<div class="content-right">
-<ul class="collapsible" data-collapsible="accordion">
-
-<li>
-
-    <div class="collapsible-header">Capgemini
-    
-    <span class="degree">as
-    </span> Senior Consultant  
-    
-    <span class="year">Sep 2021 - Present
-    </span>
+    <a class="navcta" href="mailto:sitakunzsam@gmail.com">Say hello</a>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div>
+    <div class="eyebrow">Salesforce Solution Engineer · Presales</div>
+    <h1 class="name">Sita Kunz<br>Samuel</h1>
+    <p class="role">Trusted advisor with <b>19+ years</b> architecting and presenting Customer 360 solutions — <b>Data Cloud 360</b>, <b>Agentforce 360</b>, and <b>Financial Services Cloud</b> — for global enterprises across financial services, insurance, telecom, and manufacturing.</p>
+    <div class="hero-meta">
+      <span>Boston, MA · Chicago, IL</span>
+      <a href="mailto:sitakunzsam@gmail.com">sitakunzsam@gmail.com</a>
+      <a href="https://www.linkedin.com/in/sitakunz/" target="_blank">linkedin.com/in/sitakunz</a>
+      <a href="https://www.sitakunz.com" target="_blank">sitakunz.com</a>
     </div>
-    
-    <div class="collapsible-body">
-    
-    <p>Mentored the Scrum Team by bringing in the Scrum Framework for User Stories, Code
-        Review and Test Scenario’s.
-    
-        Finding of highly vulnerable risk on the custom developed salesforce application and
-        Remediating those risks with the Developed team and Salesforce support.
-    </p>
-    </div></li>
-    
-    
-    
-<li>
+  </div>
+  <div class="scrolldown"><span>SCROLL</span><span class="line"></span></div>
+</header>
 
-
-
-    <li>
-
-    <div class="collapsible-header">IPC
-    
-    <span class="degree">as
-    </span> Functional Consultant  
-    
-    <span class="year">2018 - Present
-    </span>
+<section id="about" class="wrap">
+  <div class="sectiontitle reveal">001 / About</div>
+  <div class="about-grid">
+    <div class="reveal">
+      <h2>Built for the moment between<br>"that's interesting" and "let's buy."</h2>
+      <p>I translate complex Salesforce architecture — data models, AI governance, platform integrations — into demonstrations and points of view that resonate with both engineers and the C-suite. Across Capgemini, Globe, PLDT, and global financial services and insurance programs, I've combined deep platform fluency with a consultative, trusted-adviser approach: discovery, solution fitment, and a story that connects technology to strategy.</p>
     </div>
-    
-    <div class="collapsible-body">
-    
-    <p>Expertise in managing / implementing multiple salesforce deployments and a team player to make things happen for our esteemed customer.
-    
-        Designed and articulated customer strategic business requirement with my acquired 12+ years of techno-functional expertise and handle $8.6m yearly revenue in Asia Market.
-    </p>
-    </div></li>
-    
-    
-    
-<li>
-
-
-
-
-<div class="collapsible-header">Third Pillar   
-
-<span class="degree">as
-</span> Pre-Sales Consultant 
-
-<span class="year">2017 - 2018
-</span>
-</div>
-
-<div class="collapsible-body">
-
-<p>Handled both segments Large > 1000 and <1000 Small employee Organizations to Optimize their use of Salesforce.
-</p>
-</div></li>
-
-
-<li>
-
-<div class="collapsible-header">Bahwancybertek
-
-<span class="degree">as
-</span> Business Consultant <span class="year">2013 - 2017
-</span>
-</div>
-
-<div class="collapsible-body">
-
-<p>Working as Support Manager at Ramco Systems . Leading the support administration and quality controlling of products submited by the global freelance authors.</p>
-</div></li>
-<li>
-
-<div class="collapsible-header">Ramco Systems 
-
-<span class="degree">as
-</span>  Team Lead
-
-<span class="year">2006 - 2013
-</span>
-</div>
-
-<div class="collapsible-body">
-
-<p>Created team from scratch and Lead a 20+ member team in restyling software (Ramco Cloud ERP website), resulting in more current online presence from the Prospects.</p>
-</div></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-
-<div id="blog" class="cvitae-section cvitae-blog">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Blog</h3>
-
-<p>Here, I share my knowledge and expertise through means of blogs and articles. Through my blog, I aim to address common issues, share best practices, and discuss emerging technologies that are shaping the IT landscape.</p>
-
-<p>Stay tuned for regular updates, insightful articles, and engaging discussions. </p><a href="./blog/index.html" class="view-all">View all</a>
-</div>
-
-<div class="content-right">
-
-<div class="blog-container">
-
-<div class="post">
-
-<div class="thumb"><a href="./blog/index.html"><img src="./img/blog/1.jpg" alt="Blog 1" /></a>
-</div><h3 class="title"><a href="./blog/index.html" target="_blank">How To train on salesforce  - Step By Step</a></h3>
-</div>
-
-<div class="post">
-
-<div class="thumb"><a href="./blog/index.html"><img src="./img/blog/2.jpg" alt="Blog 2" /></a>
-</div><h3 class="title"><a href="./blog/index.html" target="_blank">How To Become A Successful Report Author</a></h3>
-</div>
-
-<div class="post">
-
-<div class="thumb"><a href="./blog/index.html"><img src="./img/blog/3.jpg" alt="Blog 3" /></a>
-</div><h3 class="title"><a href="./blog/index.html" target="_blank">Its A Pro Thing To Have An Online Resume</a></h3>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!--
-<div id="clients" class="cvitae-section cvitae-clients">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Top Clients</h3>
-
-<p>Won Lots of New Clients. Earned love, respect &amp; trust across clients. Therefore I got some Top Clients.</p>
-</div>
-
-<div class="content-right">
-
-<div class="clients-container">
-
-<div class="item"><a href="#"><img src="./img/clients/brahmosaerospace.png" alt="Client 1" /></a>
-</div>
-
-<div class="item"><a href="#"><img src="./img/clients/adityabirla.jpg" alt="Client 2" /></a>
-</div>
-
-<div class="item"><a href="#"><img src="./img/clients/3.jpg" alt="Client 3" /></a>
-</div>
-
-<div class="item"><a href="#"><img src="./img/clients/4.jpg" alt="Client 4" /></a>
-</div>
-
-<div class="item"><a href="#"><img src="./img/clients/5.jpg" alt="Client 5" /></a>
-</div>
-
-<div class="item"><a href="#"><img src="./img/clients/6.jpg" alt="Client 5" /></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="parallax">
-</div>
-</div>
--->
-<div id="contact" class="cvitae-section cvitae-contact footer">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-right"><h3 class="cvitae-section-title">Contact Me</h3>
-
-<p>Thank you for visiting my portfolio website and considering reaching out to me. Please do reach out to me about any inquiries or questions you may have. <br>
-
-    <!--Please feel fee to leave a message to me. I would love to hear from you anytime.
-    Also you can call me or push me a message to my social networks. #old text -->
-<br>Feel free to connect with me through any of these channels below, and I'll be sure to respond as soon as possible.<br>
-<br />Thank you 
-<br />Regards -</p><img src="./img/sign.png" alt="Signature" />
-</div>
-
-<!-- Adventure Section -->
-<div id="adventure" class="cvitae-section cvitae-adventure">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Adventure</h3>
-
-<p>Exploring new places, cultures, and experiences beyond the digital world.</p>
-
-</div>
-
-<div class="content-right">
-
-<p>Adventure content coming soon...</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Resources Section -->
-<div id="resources" class="cvitae-section cvitae-resources">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Resources</h3>
-
-<p>Useful links, tools, and resources for Salesforce professionals.</p>
-
-</div>
-
-<div class="content-right">
-
-<p>Resources content coming soon...</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Life Inside Pixels Section -->
-<div id="lifepixels" class="cvitae-section cvitae-lifepixels">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Life Inside Pixels</h3>
-
-<p>A behind-the-scenes look at my journey in tech and creativity.</p>
-
-</div>
-
-<div class="content-right">
-
-<p>Life Inside Pixels content coming soon...</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Chat Section -->
-<div id="chat" class="cvitae-section cvitae-chat">
-
-<div class="cvitae-container">
-
-<div class="cvitae-section-content">
-
-<div class="content-left"><h3 class="cvitae-section-title">Chat</h3>
-
-<p>Let's connect and discuss opportunities, collaborations, or just say hello!</p>
-
-</div>
-
-<div class="content-right">
-
-<p>Chat content coming soon...</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!--<div> #this is for removing the divider in the contact section, a closing div is also removed along with this, for this-->
-
-<!-- 
-<form id="my_form" on submit="submitForm(); return false;">
-
-<div class="row">
-
-<div class="col s6">
-
-<div class="form-input">
-<input id="n" type="text" placeholder="your name*" required/>
-
-<span class="underline">
-</span>
-</div>
-</div>
-
-<div class="col s6">
-
-<div class="form-input">
-<input id="e" type="text" placeholder="email*" required/>
-
-<span class="underline">
-</span>
-</div>
-</div>
-</div>
-
-<div class="row">
-
-<div class="col s12">
-
-<div class="form-textarea">
-<textarea id="m" placeholder="your message" required>
-</textarea>
-
-<span class="underline">
-</span>
-</div>
-
-<div class="form-submit"><p><input id="mybtn" type="submit" value="Submit Form"><span id="status"></span></p>
-
-<span class="underline">
-</span>
-</div>
-</div>
-</div>
-</form>
-
-
-<form id="my_form" onsubmit="submitForm(); return false;">
-    <p><input id="n" placeholder="Name" required></p>
-    <p><input id="e" placeholder="Email Address" type="email" required></p>
-    <textarea id="m" placeholder="write your message here" rows="10" required></textarea>
-    <p><input id="mybtn" type="submit" value="Submit Form"> <span id="status"></span></p>
-</form>  -->
-
-
-<!--</div>#this is for removing the divider in the contact section, a opening div is also removed along with this, for this-->
-</div>
-</div>
-
-<div class="footer-content">
-
-<div class="cvitae-container">
-<ul class="links">
-<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Email this Resume"><a href="mailto:sitakunzsam@gmail.com">
-
-<span class="ti-email">
-</span>Email this Resume</a></li>
-<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Github"><a href="https://github.com/zitakunz" Target="_blank">
-
-<span class="ti-github">
-</span>Github</a></li>
-<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Goto Top"><a href="#" data-hover="Goto Top" class="goto-top">
-
-<span class="ti-arrow-up">
-</span>Goto Top</a></li>
-<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Follow on Twitter"><a href="https://twitter.com/SitaKunz" Target="_blank">
-
-<span class="ti-twitter">
-</span>Twitter Profile</a></li>
-<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Follow on LinkedIn"><a href="https://www.linkedin.com/in/sitakunz/" Target="_blank">
-
-<span class="ti-linkedin">
-</span>LinkedIn Profile</a></li>
-<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Follow on LinkedIn"><a href="https://twitter.com/SitaKunz" Target="_blank"></a>
-</ul>
- </div>
-</div>
-</div>
-
-<div class="cvitae-portfolio-popup">
-
-<div class="portfolio-content">
-
-<div class="project-image"><img id="project-image" src="./img/portfolio/1.jpg" class="img-responsive" alt="Project Image" />
-</div>
-
-<div class="project-title"><h4 id="project-title">Project Title</h4><a id="project-link" target="_blank" href="#">( Live Link )</a>
-</div>
-
-<p class="project-detail" id="project-detail">Write a short description (2 lines) about your project (when you did this? for whom you worked for? ) How was the accomplishment etc? Remember, a good practise, you must not write more than 40 - 60 words</p>
-
-<span class="project-popup-close ti-close">
-</span>
-</div>
-</div>
-</div>
-<script type="text/javascript" src="./js/jquery-1.11.3.min.js">
-</script>
-<script type="text/javascript" src="./js/materialize.min.js">
-</script>
-<script type="text/javascript" src="./js/typed.min.js">
-</script>
-<script type="text/javascript" src="./js/jquery.smooth-scroll.js">
-</script>
-<script type="text/javascript" src="./js/SmoothScroll.js">
-</script>
-<script type="text/javascript" src="./js/jquery.parallax.js">
-</script>
-<script type="text/javascript" src="./js/jquery.waypoints.js">
-</script>
-<script type="text/javascript" src="./js/jquery.catslider.js">
-</script>
-<script type="text/javascript" src="./js/owl.carousel.min.js">
-</script>
-<script type="text/javascript" src="./js/main.js">
+    <div class="stats reveal">
+      <div class="stat"><div class="num" data-target="19" data-suffix="+">0</div><div class="lab">Years in Salesforce ecosystem</div></div>
+      <div class="stat"><div class="num" data-target="16" data-prefix="$" data-suffix="M+">0</div><div class="lab">Delivery cost savings</div></div>
+      <div class="stat"><div class="num" data-target="5000" data-suffix="+">0</div><div class="lab">Users supported in production</div></div>
+      <div class="stat"><div class="num" data-target="1" data-prefix="$" data-suffix="B+">0</div><div class="lab">Enterprise API integration program</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="sectiontitle reveal">002 / Experience</div>
+  <h2 class="reveal">Career trajectory</h2>
+  <div class="timeline">
+    <div class="titem reveal">
+      <div class="when">Jan 2023 — Present</div>
+      <h3>Salesforce Data &amp; AI Transformation Director</h3>
+      <div class="co">GLGlobal · Chicago / Boston, USA · Remote</div>
+      <ul>
+        <li>Direct multi-workstream Salesforce delivery across financial services and cross-industry engagements, leading 5–10 person Data &amp; AI teams.</li>
+        <li>Lead Data Cloud 360 builds end-to-end and champion Einstein AI / Agentforce 360 on the Einstein 1 Platform.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">Sep 2021 — Dec 2022</div>
+      <h3>Senior Salesforce Consultant</h3>
+      <div class="co">Capgemini · Philippines · Onsite</div>
+      <ul>
+        <li>Directed production support for 5,000+ users across Financial Services Cloud and Marketing Cloud for a global insurance carrier.</li>
+        <li>Drove a $1B+ API Factory initiative establishing enterprise integration standards.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">May 2018 — Jul 2021</div>
+      <h3>Salesforce Functional Consultant</h3>
+      <div class="co">IP Converge Data Services (ePLDT) · Philippines · Onsite</div>
+      <ul>
+        <li>Spearheaded Salesforce CRM delivery across enterprise programs, delivering $16M in cost savings.</li>
+        <li>Designed Sales, Service, and Marketing Cloud solutions using Apex, Flow, and web service integrations.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">Oct 2017 — Dec 2017</div>
+      <h3>Presales Functional Consultant</h3>
+      <div class="co">Third Pillar (Globe) · Philippines · Onsite</div>
+      <ul>
+        <li>Built immersive Salesforce demo environments and presales assets, supporting deal qualification and closure.</li>
+      </ul>
+    </div>
+    <div class="titem reveal">
+      <div class="when">2006 — 2017</div>
+      <h3>Earlier career — Bahwan CyberTek &amp; Ramco Systems</h3>
+      <div class="co">India · Onsite</div>
+      <ul>
+        <li>Delivered Sales Cloud rollouts for 50+ global sales teams; led a 20+ member CRM &amp; digital delivery team.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="sectiontitle reveal">003 / Capabilities</div>
+  <h2 class="reveal">Platform fluency</h2>
+  <div class="reveal">
+    <div class="skillgroup">
+      <h4>Industry, Data &amp; AI Cloud</h4>
+      <div class="chips">
+        <span class="chip">Financial Services Cloud</span><span class="chip">Data Cloud 360</span>
+        <span class="chip">Agentforce 360</span><span class="chip">Einstein AI</span><span class="chip">Einstein 1 Platform</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <h4>Core Clouds</h4>
+      <div class="chips">
+        <span class="chip">Sales Cloud</span><span class="chip">Service Cloud</span><span class="chip">Marketing Cloud (Pardot)</span>
+        <span class="chip">Experience Cloud</span><span class="chip">Lightning Platform</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <h4>Development &amp; DevOps</h4>
+      <div class="chips">
+        <span class="chip">Apex</span><span class="chip">SOQL</span><span class="chip">Flow Orchestration</span>
+        <span class="chip">Gearset</span><span class="chip">Copado</span><span class="chip">AutoRabit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs" class="wrap">
+  <div class="sectiontitle reveal">004 / Certifications</div>
+  <h2 class="reveal">Salesforce-certified</h2>
+  <div class="certgrid reveal">
+    <div class="cert"><div class="cn">Data Cloud Consultant</div><div class="cd">Sep 2024</div></div>
+    <div class="cert"><div class="cn">AI Associate</div><div class="cd">Dec 2024</div></div>
+    <div class="cert"><div class="cn">AI Specialist</div><div class="cd">—</div></div>
+    <div class="cert"><div class="cn">Platform App Builder</div><div class="cd">Aug 2023</div></div>
+    <div class="cert"><div class="cn">Marketing Cloud Consultant</div><div class="cd">Aug 2020</div></div>
+    <div class="cert"><div class="cn">Pardot Specialist</div><div class="cd">Apr 2021</div></div>
+    <div class="cert"><div class="cn">Service Cloud Consultant</div><div class="cd">Aug 2019</div></div>
+    <div class="cert"><div class="cn">Sales Cloud Consultant</div><div class="cd">Aug 2018</div></div>
+    <div class="cert"><div class="cn">Salesforce Administrator</div><div class="cd">May 2017</div></div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="sectiontitle reveal">005 / Education</div>
+  <h2 class="reveal">Academic background</h2>
+  <div class="edu reveal">
+    <div class="eduitem"><div class="left"><b>M.S., Data Science, IT &amp; Business Analytics</b><div>Monroe University, USA</div></div><div class="right">Expected 2027</div></div>
+    <div class="eduitem"><div class="left"><b>MBA, Banking &amp; Finance</b><div>Alagappa University, India</div></div><div class="right">2009</div></div>
+    <div class="eduitem"><div class="left"><b>B.Sc., Chemistry</b><div>Women's Christian College, India</div></div><div class="right">2000</div></div>
+  </div>
+</section>
+
+<footer id="contact" class="wrap">
+  <div class="sectiontitle reveal" style="justify-content:center; display:flex;">006 / Contact</div>
+  <h2 class="reveal">Let's talk solutions.</h2>
+  <p class="reveal">Open to Solution Engineering, Presales, and Salesforce platform leadership conversations across financial services, insurance, and enterprise technology.</p>
+  <div class="contact-row reveal">
+    <a class="pillbtn primary" href="mailto:sitakunzsam@gmail.com">Email me</a>
+    <a class="pillbtn" href="https://www.linkedin.com/in/sitakunz/" target="_blank">LinkedIn</a>
+    <a class="pillbtn" href="tel:331-278-0971">331-278-0971</a>
+  </div>
+  <div class="foot-credit">Boston, MA · Chicago, IL — sitakunz.com</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.num');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.target,10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        let cur = 0;
+        const step = Math.max(1, Math.round(target/40));
+        const tick = ()=>{
+          cur += step;
+          if(cur >= target){ el.textContent = prefix+target+suffix; return; }
+          el.textContent = prefix+cur+suffix;
+          requestAnimationFrame(tick);
+        };
+        tick();
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold:0.4});
+  counters.forEach(el=>cio.observe(el));
+
+  // Mobile nav (simple toggle, future-proofing for smaller screens)
+  document.querySelectorAll('.navlinks a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
 </script>
 
 </body>
